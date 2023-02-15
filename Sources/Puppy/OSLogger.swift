@@ -1,11 +1,9 @@
 #if canImport(Darwin)
-@preconcurrency import Dispatch
 @preconcurrency import os
 import Foundation
 
 public struct OSLogger: Loggerable, Sendable {
     public let label: String
-    public let queue: DispatchQueue
     public let logLevel: LogLevel
     public let logFormat: LogFormattable?
 
@@ -14,7 +12,6 @@ public struct OSLogger: Loggerable, Sendable {
     public init(_ label: String, logLevel: LogLevel = .trace, logFormat: LogFormattable? = nil,
                 category: String = "Puppy") {
         self.label = label
-        self.queue = DispatchQueue(label: label)
         self.logLevel = logLevel
         self.logFormat = logFormat
         self.osLog = OSLog(subsystem: label, category: category)

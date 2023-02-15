@@ -185,12 +185,10 @@ struct LogFormatter: LogFormattable {
 You can also create your own custom logger. The custom logger needs to conform to `Loggerable` protocol.
 
 ```swift
-@preconcurrency import Dispatch
 import Puppy
 
 public struct CustomLogger: Loggerable {
     public let label: String
-    public let queue: DispatchQueue
     public let logLevel: LogLevel
     public let logFormat: LogFormattable?
 

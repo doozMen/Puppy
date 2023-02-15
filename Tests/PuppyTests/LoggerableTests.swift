@@ -23,15 +23,10 @@ final class LoggerableTests: XCTestCase {
 
         await log.wait()
 
-        let exp = XCTestExpectation(description: "MockLogger LogLevel")
-        mockLogger.queue.async {
-            XCTAssertTrue(mockLogger.invokedLog)
-            XCTAssertEqual(mockLogger.invokedLogCount, 3)
-            XCTAssertEqual(mockLogger.invokedLogLevels, [.debug, .info, .notice])
-            XCTAssertEqual(mockLogger.invokedLogStrings, ["DEBUG message", "INFO message", "NOTICE message"])
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 5.0)
+        XCTAssertTrue(mockLogger.invokedLog)
+        XCTAssertEqual(mockLogger.invokedLogCount, 3)
+        XCTAssertEqual(mockLogger.invokedLogLevels, [.debug, .info, .notice])
+        XCTAssertEqual(mockLogger.invokedLogStrings, ["DEBUG message", "INFO message", "NOTICE message"])
 
         log.remove(mockLogger)
     }
@@ -48,29 +43,24 @@ final class LoggerableTests: XCTestCase {
 
         await log.wait()
 
-        let exp = XCTestExpectation(description: "MockLogger LogFormatter")
-        mockLogger.queue.async {
-            XCTAssertEqual(mockLogger.invokedLogCount, 2)
-            XCTAssertEqual(mockLogger.invokedLogLevels, [.error, .critical])
-            XCTAssertEqual(mockLogger.invokedLogStrings, [
-                "MockLogFormatter ERROR message",
-                "MockLogFormatter CRITICAL message",
-            ])
+        XCTAssertEqual(mockLogger.invokedLogCount, 2)
+        XCTAssertEqual(mockLogger.invokedLogLevels, [.error, .critical])
+        XCTAssertEqual(mockLogger.invokedLogStrings, [
+            "MockLogFormatter ERROR message",
+            "MockLogFormatter CRITICAL message",
+        ])
 
-            XCTAssertEqual(mockLogFormatter.invokedFormatMessageCount, 2)
-            XCTAssertEqual(mockLogFormatter.invokedFormatMessageLevels, [.error, .critical])
-            XCTAssertEqual(mockLogFormatter.invokedFormatMessageMessages, [
-                "ERROR message",
-                "CRITICAL message",
-            ])
-            XCTAssertEqual(mockLogFormatter.invokedFormatMessageTags, ["", "critical-tag"])
-            XCTAssertEqual(mockLogFormatter.invokedFormatMessageModuleNames, ["PuppyTests", "PuppyTests"])
-            XCTAssertEqual(mockLogFormatter.invokedFormatMessageFileNames, ["LoggerableTests.swift", "LoggerableTests.swift"])
-            XCTAssertEqual(mockLogFormatter.invokedFormatMessageSwiftLogInfo, ["source": ""])
-            XCTAssertEqual(mockLogFormatter.invokedFormatMessageLabel, "com.example.yourapp.mocklogger.logformat")
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 5.0)
+        XCTAssertEqual(mockLogFormatter.invokedFormatMessageCount, 2)
+        XCTAssertEqual(mockLogFormatter.invokedFormatMessageLevels, [.error, .critical])
+        XCTAssertEqual(mockLogFormatter.invokedFormatMessageMessages, [
+            "ERROR message",
+            "CRITICAL message",
+        ])
+        XCTAssertEqual(mockLogFormatter.invokedFormatMessageTags, ["", "critical-tag"])
+        XCTAssertEqual(mockLogFormatter.invokedFormatMessageModuleNames, ["PuppyTests", "PuppyTests"])
+        XCTAssertEqual(mockLogFormatter.invokedFormatMessageFileNames, ["LoggerableTests.swift", "LoggerableTests.swift"])
+        XCTAssertEqual(mockLogFormatter.invokedFormatMessageSwiftLogInfo, ["source": ""])
+        XCTAssertEqual(mockLogFormatter.invokedFormatMessageLabel, "com.example.yourapp.mocklogger.logformat")
 
         log.removeAll()
     }

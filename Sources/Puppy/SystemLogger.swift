@@ -1,11 +1,9 @@
 #if os(Linux)
-@preconcurrency import Dispatch
 import Foundation
 import func CPuppy.cpuppy_syslog
 
 public struct SystemLogger: Loggerable, Sendable {
     public let label: String
-    public let queue: DispatchQueue
     public let logLevel: LogLevel
     public let logFormat: LogFormattable?
 
