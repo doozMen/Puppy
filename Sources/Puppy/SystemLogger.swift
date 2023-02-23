@@ -9,7 +9,6 @@ public struct SystemLogger: Loggerable, Sendable {
 
     public init(_ label: String, logLevel: LogLevel = .trace, logFormat: LogFormattable? = nil) {
         self.label = label
-        self.queue = DispatchQueue(label: label)
         self.logLevel = logLevel
         self.logFormat = logFormat
     }
