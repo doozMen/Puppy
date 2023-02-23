@@ -37,7 +37,7 @@ public struct Puppy: Sendable {
 
     /// Will wait for all logs to finish
     public func wait() async {
-        await fifoQueue.await {
+        await fifoQueue.enqueueAndWait {
            // this should be empty to allow all to finish
         }
     }
@@ -89,7 +89,7 @@ public struct Puppy: Sendable {
         let threadID = currentThreadID()
 
         for logger in loggers {
-            fifoQueue.async {
+          fifoQueue.enqueue {
                 await logger.pickMessage(level, message: message, tag: tag, function: function, file: file, line: line, swiftLogInfo: swiftLogInfo, label: logger.label, date: date, threadID: threadID)
             }
         }

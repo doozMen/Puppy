@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/dfed/swift-async-queue",
       "state" : {
-        "revision" : "d08ed0272d4c5f4133b3bb447fc05fc03a2b02f9",
-        "version" : "0.1.0"
+        "revision" : "4fb464f3acc6770d3b2103b8e7928c18644e4d48",
+        "version" : "0.3.0"
       }
     },
     {
